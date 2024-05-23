@@ -1,0 +1,4 @@
+password-xsOWCAw4cs9fh6fU
+username- apurbasarkar453
+
+link- mongodb+srv://<username>:<password>@sam.jzhcpmd.mongodb.net/?retryWrites=true&w=majority&appName=sam
