@@ -34,9 +34,10 @@ const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     console.log("------server-----------");
-    console.log(typeof(username), password);
+    // console.log(typeof(username), password);
     const userExist = await User.findOne({ username });
-    console.log(typeof(userExist));
+    console.log(userExist);
+  
     if (!userExist) {
       return res.status(400).json({ msg: "invalid creds" });
     }
@@ -51,6 +52,7 @@ const login = async (req, res) => {
         // userpassword: userExist.password,
       });
       console.log(userExist);
+      console.log("login succesful")
     } else {
       res.status(401).json({
         msg: "invalid email or password",

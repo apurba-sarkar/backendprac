@@ -19,7 +19,7 @@ export default function Login() {
   const handleSubmit =async (e) => {
     // console.log(userData);
     e.preventDefault()
-    console.log(userData)
+    // console.log(userData)
     try {
       const res = await axios.post("http://localhost:5000/login",userData)
       console.log(res.data);
