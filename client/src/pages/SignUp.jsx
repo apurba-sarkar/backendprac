@@ -1,8 +1,9 @@
 // import React from 'react'
-
+import { useAuth } from "../store/auth";
 import { useState } from "react";
 import axios from 'axios';
 export default function SignUp() {
+  const storetokenInLs = useAuth()
     const initialData = {
         username: "",
         password: "",
@@ -21,8 +22,8 @@ export default function SignUp() {
         console.log(userData)
         try {
           const res = await axios.post("http://localhost:5000/signup",userData)
-          console.log(res.data);
-          
+          // console.log(res.data);
+          storetokenInLs(res.data.token)
         } catch (error) {
           console.log(error)
         }

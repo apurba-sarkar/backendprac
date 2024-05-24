@@ -1,10 +1,13 @@
 // import React from 'react'
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Login() {
+  const navigate = useNavigate();
   const initialData = {
-   username: "",
+    username: "",
     password: "",
   };
 
@@ -16,16 +19,16 @@ export default function Login() {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     // console.log(userData);
-    e.preventDefault()
+    e.preventDefault();
     // console.log(userData)
     try {
-      const res = await axios.post("http://localhost:5000/login",userData)
+      const res = await axios.post("http://localhost:5000/login", userData);
       console.log(res.data);
-      
+      navigate("/login");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   return (
