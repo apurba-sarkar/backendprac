@@ -1,12 +1,7 @@
+const bcrypt = require("bcryptjs");
 const User = require("../models/user-model");
 
-const login = async (req, res) => {
-  try {
-    res.status(200).send("welcome to the router");
-  } catch (error) {
-    console.log(error);
-  }
-};
+// registration
 const signup = async (req, res) => {
   try {
     // console.log(req.body);
@@ -34,4 +29,35 @@ const signup = async (req, res) => {
   }
 };
 
+// login
+const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    console.log("------server-----------");
+    console.log(typeof(username), password);
+    const userExist = await User.findOne({ username });
+    console.log(typeof(userExist));
+    if (!userExist) {
+      return res.status(400).json({ msg: "invalid creds" });
+    }
+    // const passwordCheck = await bcrypt.compare(password, userExist.password);
+    const passwordCheck = await userExist.comparePassword(password);
+
+    if (passwordCheck) {
+      res.status(201).json({
+        msg: " login success",
+        token: await userExist.generateToken(),
+        userId: userExist._id.toString(),
+        // userpassword: userExist.password,
+      });
+      console.log(userExist);
+    } else {
+      res.status(401).json({
+        msg: "invalid email or password",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 module.exports = { login, signup };

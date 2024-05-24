@@ -1,10 +1,10 @@
 // import React from 'react'
 
 import { useState } from "react";
-
+import axios from 'axios';
 export default function SignUp() {
     const initialData = {
-        name: "",
+        username: "",
         password: "",
       };
     
@@ -16,8 +16,16 @@ export default function SignUp() {
         setUserData({ ...userData, [name]: value });
       };
     
-      const handleSubmit = () => {
-        console.log(userData);
+      const handleSubmit = async (e) => {
+        e.preventDefault()
+        console.log(userData)
+        try {
+          const res = await axios.post("http://localhost:5000/signup",userData)
+          console.log(res.data);
+          
+        } catch (error) {
+          console.log(error)
+        }
       };
   return (
     <div>
@@ -29,8 +37,8 @@ export default function SignUp() {
         type="text"
         placeholder="email"
         onChange={handleChange}
-        value={userData.name}
-        name="name"
+        value={userData.username}
+        name="username"
       />
       <label>password</label>
       <input

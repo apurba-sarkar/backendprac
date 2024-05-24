@@ -1,10 +1,10 @@
 // import React from 'react'
-
+import axios from "axios";
 import { useState } from "react";
 
 export default function Login() {
   const initialData = {
-    name: "",
+   username: "",
     password: "",
   };
 
@@ -16,8 +16,17 @@ export default function Login() {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleSubmit = () => {
-    console.log(userData);
+  const handleSubmit =async (e) => {
+    // console.log(userData);
+    e.preventDefault()
+    console.log(userData)
+    try {
+      const res = await axios.post("http://localhost:5000/login",userData)
+      console.log(res.data);
+      
+    } catch (error) {
+      console.log(error)
+    }
   };
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -26,8 +35,8 @@ export default function Login() {
         type="text"
         placeholder="email"
         onChange={handleChange}
-        value={userData.name}
-        name="name"
+        value={userData.username}
+        name="username"
       />
       <label>password</label>
       <input
